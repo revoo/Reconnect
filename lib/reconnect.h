@@ -14,6 +14,8 @@ int socket_listen(int);
 int accept_connections(int);
 // Send messages to sockets that have established connection
 int send(const char*, int);
+// Recieve messages from sockets that have established connection
+int recieve(char*, int);
 
 
 

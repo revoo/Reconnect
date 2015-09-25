@@ -55,9 +55,20 @@ int accept_connections(int sock_fd) {
 // Communicate between TCP sockets
 int send(char const message[], int client_sock) {
         int bytes_sent;
-        if ((bytes_sent = send(client_sock, message, strlen(message), 0)) == -1) { return -0; }
+        if ((bytes_sent = send(client_sock, message, strlen(message), 0)) == -1) { return -1; }
         while ((unsigned) bytes_sent < strlen(message)) {
-                if ((bytes_sent = send(client_sock, message, sizeof(message), 0)) == -1) { return -0; }
+                if ((bytes_sent = send(client_sock, message, sizeof(message), 0)) == -1) { return -1; }
         }
         return bytes_sent;
+}
+
+// Recieve communication from external sources through TCP sockets
+int recieve(char buffer[], int client_sock) {
+        int bytes_recieved;
+        if ((bytes_recieved = recv(client_sock, buffer, sizeof(buffer), 0)) == -1) { return -1; }
+       // TODO: Keep recieiving until null terminator reached. 
+       // while (buffer[strlen(buffer) + 1] != '\0') {
+       //          if ((recv(client_sock, buffer, sizeof(buffer), 0)) == -1) { return -1; }
+       // }
+       return bytes_recieved;
 }
