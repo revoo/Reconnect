@@ -13,9 +13,11 @@ int socket_listen(int);
 // Accept incoming TCP connections for servers
 int accept_connections(int);
 // Send messages to sockets that have established connection
-int send(const char*, int);
+int send(int, const char*);
 // Recieve messages from sockets that have established connection
-int recieve(char*, int);
+int recieve(int, char*, int);
+// Connect to remote hosts via TCP sockets
+int connect(int, char const*, int);
 
 
 

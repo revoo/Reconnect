@@ -53,7 +53,7 @@ int accept_connections(int sock_fd) {
 }
 
 // Communicate between TCP sockets
-int send(char const message[], int client_sock) {
+int send(int client_sock, char const message[]) {
         int bytes_sent;
         if ((bytes_sent = send(client_sock, message, strlen(message), 0)) == -1) { return -1; }
         while ((unsigned) bytes_sent < strlen(message)) {
@@ -63,12 +63,19 @@ int send(char const message[], int client_sock) {
 }
 
 // Recieve communication from external sources through TCP sockets
-int recieve(char buffer[], int client_sock) {
+int recieve(int client_sock, char buffer[], int buffer_size) {
         int bytes_recieved;
-        if ((bytes_recieved = recv(client_sock, buffer, sizeof(buffer), 0)) == -1) { return -1; }
+        if ((bytes_recieved = recv(client_sock, buffer, buffer_size, 0)) == -1) { return -1; }
        // TODO: Keep recieiving until null terminator reached. 
        // while (buffer[strlen(buffer) + 1] != '\0') {
        //          if ((recv(client_sock, buffer, sizeof(buffer), 0)) == -1) { return -1; }
        // }
        return bytes_recieved;
+}
+
+// Connect to remote hosts using TCP sockets
+int connect(int sock_fd, char const ip[], int port) {
+        struct sockaddr_in addrinfo = init_sock_address(ip, port);
+        if (connect(sock_fd, (struct sockaddr *) &addrinfo, sizeof(struct sockaddr_in)) == -1 ) { return -1; }
+        return 0;
 }

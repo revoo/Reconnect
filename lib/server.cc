@@ -19,12 +19,9 @@ int main(int argc, char *argv[]) {
         printf("Successfully started listening on port\n");
         printf("Server is now operational and is accepting connections\n");
         int client_sock = accept_connections(socket_fd);
-        int bytes_rev = send("zyzz bruh here agen m9\n", client_sock);
+        int bytes_rev = send(client_sock, "zyzz bruh here agen m9\n");
         printf("bytes sent: %d\n", bytes_rev);
         
-//        struct sockaddr_in client_addr;
-  //      unsigned sock_size = sizeof(struct sockaddr_in);
-    //    int client_sock;
         // Begin accept while loop. The server will fork to deal with any clients and the parent will close clients.
    //     while(1) {
      //           if ((client_sock = accept(socket_fd, (struct sockaddr *) &client_addr, &sock_size)) == -1) { 
